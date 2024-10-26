@@ -1,0 +1,48 @@
+services:
+  fpm:
+    build:
+      context: ./fpm
+      dockerfile: Dockerfile
+    image: fpm32.6 
+    container_name: fpm32.6 
+    volumes:
+      - ./code:/data/application.local
+      - ./fpm/php.ini:/usr/local/etc/php/conf.d/custom.ini
+    networks:
+      - app-network
+ 
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    image: nginx32.6
+    container_name: nginx32.6
+    volumes:
+      - ./code:/data/application.local
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - app-network
+ 
+  mysql:
+    build:
+      context: ./mysql
+    image: mysql32.6
+    container_name: mysql32.6
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - /usr/local/dbdata:/var/lib/mysql  
+      - ./mysql/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - app-network
+ 
+networks:
+  app-network:
+    driver: bridge

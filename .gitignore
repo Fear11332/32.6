@@ -1,0 +1,45 @@
+# .gitignore
+
+# Node.js dependencies
+node_modules/
+package-lock.json
+
+# Environment variables
+.env
+
+# Visual Studio Code settings
+.vscode/
+.history/
+
+# Logs
+*.log
+
+# Build output
+dist/
+build/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# Other potentially sensitive files
+*.pem
+*.key
+*.crt
+
+# IDE-specific files
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Ignore any custom build directory
+custom_build/
